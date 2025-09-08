@@ -205,6 +205,6 @@ shrinkCloseIcons.forEach(icon => {
     container.classList.add('hidden');     // fade out veloce
     setTimeout(() => {
       container.classList.remove('hidden'); // fade in
-    }, 200);
+    }, 100);
   });
 });
