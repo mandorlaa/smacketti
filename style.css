@@ -1,0 +1,264 @@
+/* Customization Variables */
+:root {
+  /* Colors */
+  --color-page-background: white;
+  --color-main-container-background: black;
+  --color-inner-container-background: white;
+  --color-border: grey;
+  --color-button-background: black;
+  --color-heading-text: white;
+  --color-button-text: white;
+  --color-message-text: black;
+
+  /* Images */
+  --image-path-background: url('assets/main-bg.png');
+  /* allineata al primo elemento del JS (img-01.png) */
+  --image-path-content: url('assets/image-content/img-01.png');
+
+  /* Fonts */
+  --font-family-main: "Pixelify Sans", sans-serif;
+  --font-size-large: 1.75rem;
+  --font-size-medium: 1.5635rem;
+
+  /* Border Radius */
+  --border-radius: 0.31269rem;
+
+  /* Border Width */
+  --border-width-main: 3px;
+  --border-width-inner: 3.413px;
+
+  /* Spacing */
+  --padding-container: 1rem;
+  --gap-icons: 0.375rem;
+  --gap-button: 0.58369rem;
+
+  /* Cursors */
+  --cursor-default: url('assets/cursor-default.png');
+  --cursor-pointer: url('assets/cursor-pointer.png');
+}
+
+/* === Cursori Pixel Art (default/pointer) ================== */
+html, body {
+  cursor: var(--cursor-default) 0 0, default !important;
+  image-rendering: pixelated;
+}
+button,
+.shrink-icon,
+.restart-btn,
+a[href] {
+  cursor: var(--cursor-pointer) 0 0, pointer !important;
+  image-rendering: pixelated;
+}
+
+/* Utility */
+.hidden { display: none !important; }
+
+/* Base styles */
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--color-page-background) var(--image-path-background) bottom center no-repeat;
+  background-size: 100% auto; /* Desktop view */
+}
+
+h1 {
+  color: var(--color-heading-text);
+  font-family: var(--font-family-main);
+  font-size: var(--font-size-large);
+  font-weight: 400;
+  font-style: normal;
+  line-height: normal;
+}
+
+/* Container styles */
+.container {
+  position: relative;
+  width: 600px;
+  aspect-ratio: 600 / 650;
+  border: var(--border-width-main) solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-main-container-background);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  padding: var(--padding-container);
+  transition: opacity 0.2s ease;
+}
+
+/* Inner container */
+.inner-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 500 / 500;
+  border: var(--border-width-inner) solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-inner-container-background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Header */
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 10%;
+  text-align: center;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Shrink Close Icons */
+.shrink-close-icons {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-icons);
+}
+
+/* Icons */
+.shrink-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 2px;
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out, transform 0.1s ease;
+}
+.shrink-icon:active { transform: scale(0.95); }
+
+/* Image Content - FULLSCREEN dentro l'inner-container */
+.image-content {
+  position: absolute;
+  inset: 0; /* top:0 right:0 bottom:0 left:0 */
+  background: var(--image-path-content) center center / cover no-repeat;
+  transition: opacity 0.5s ease;
+  opacity: 1;
+  z-index: 0; /* sotto overlay */
+}
+
+/* Buttons (base) – uguali per entrambi */
+#main-button,
+#rko-button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap-button);
+  border: var(--border-width-inner) solid var(--color-border);
+  border-radius: var(--border-radius);
+  background: var(--color-button-background);
+  color: var(--color-button-text);
+  text-align: center;
+  font-family: var(--font-family-main);
+  font-size: var(--font-size-medium);
+  font-weight: 400;
+  font-style: normal;
+  line-height: normal;
+  transition: transform 0.2s ease;
+  width: 45%;
+  aspect-ratio: 175 / 44;
+  height: auto;
+}
+#main-button:hover,
+#rko-button:hover { transform: scale(1.05); }
+
+/* Riga pulsanti - OVERLAY */
+.buttons-row {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 1rem;            /* distacco dal fondo */
+  width: 90%;
+  display: flex;
+  justify-content: center; /* solo Accarezza (centrato) */
+  align-items: center;
+  gap: 1rem;
+  z-index: 2;              /* sopra l'immagine */
+  pointer-events: auto;
+}
+.buttons-row.two {         /* con RKO → ai lati */
+  justify-content: space-between;
+}
+
+/* Box messaggio finale + restart - OVERLAY */
+.final-area {
+  position: absolute;
+  left: 50%;
+  bottom: 1rem;                  /* in basso come i pulsanti */
+  transform: translateX(-50%);
+  z-index: 3;                    /* sopra tutto */
+
+  /* BOX */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.85rem 1rem;
+  min-width: 240px;
+  max-width: calc(100% - 2rem);
+
+  background: rgba(255, 255, 255, 0.92);
+  border: var(--border-width-inner) solid var(--color-border);
+  border-radius: calc(var(--border-radius) * 2);
+  box-shadow:
+    0 6px 14px rgba(0,0,0,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+  backdrop-filter: blur(3px);
+}
+
+.final-message {
+  color: var(--color-message-text);
+  text-align: center;
+  font-family: var(--font-family-main);
+  font-size: var(--font-size-large);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.1;
+  text-shadow: none;
+  margin: 0;
+}
+
+/* Pulsante tondo restart (dentro il box) */
+.restart-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--color-button-background);
+  border: var(--border-width-inner) solid var(--color-border);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.15s ease;
+}
+.restart-btn:hover { transform: scale(1.05); }
+.restart-btn img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+/* Animazione "shrink/close" */
+.container.hidden { opacity: 0; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  body {
+    background-size: cover;
+    background-position: bottom center;
+  }
+  .container { margin: 1rem; }
+  h1 { font-size: calc(var(--font-size-large) - 0.25rem); }
+  .buttons-row { width: 96%; bottom: 0.75rem; }
+  .final-area  { bottom: 0.75rem; padding: 0.75rem 0.875rem; }
+}
